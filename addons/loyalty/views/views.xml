@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_pos_config_form">
+            <field name="name">pos.config.form.view</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//group[@string='Receipt']" position="after">
+                    <group string="Loyalty Program" col="4" >
+                        <field name="loyalty_id" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_template_form_view">
+            <field name="name">product.template.form.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='pos']" position="after">
+                    <group name="loyalty" string="Loyalty">
+                        <field name="loyalty_override" />
+                        <field name="loyalty_points" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_partner_property_form">
+            <field name="name">res.partner.product.property.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="point_of_sale.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Point of Sale']/group" position="after">
+                    <group name="loyalty" string="Loyalty Programs">
+                        <field name="loyalty_points" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_pos_pos_form">
+            <field name="name">pos.order.inherit</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Extra Info']" position="inside">
+                    <group name="loyalty" string="Loyalty Programs">
+                        <field name="loyalty_points" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_loyalty_program_form">
+            <field name="name">loyalty.program.form.view</field>
+            <field name="model">loyalty.program</field>
+            <field name="arch" type="xml">
+                <form string="Loyalty Program">
+
+                    <group col="2">
+                        <field name="name" />
+                        <field name="currency" />
+                        <field name="product" />
+                        <field name="order" />
+                        <field name="rounding" />
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_loyalty_program_tree">
+            <field name="name">loyalty.program.form.view</field>
+            <field name="model">loyalty.program</field>
+            <field name="arch" type="xml">
+                <tree string="Loyalty Programs">
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_loyalty_program_form">
+            <field name="name">Loyalty Programs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">loyalty.program</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a Loyalty Program.
+                </p><p>
+                    Loyalty Programs allows you customer to earn points
+                    and rewards when doing business at your shops.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+            parent="point_of_sale.menu_point_config_product"
+            action="action_loyalty_program_form"
+            id="menu_loyalty_program"
+            sequence="30"
+            groups="point_of_sale.group_pos_manager" />
+
+    </data>
+</openerp>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_loyalty_program_form">
+            <field name="name">loyalty.program.form.view</field>
+            <field name="model">loyalty.program</field>
+            <field name="inherit_id" ref="loyalty.view_loyalty_program_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='rounding']" position="after">
+                    <field name="minimum_points" />
+                    <field name="discount_product_id" />
+                </xpath>
+            </field>
+
+        </record>
+
+    </data>
+</openerp>

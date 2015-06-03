@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    
+    <t t-name="LoyaltyPoints">
+        <div class='loyalty-points'>
+            <span class="won">
+                <span class='value'><t t-esc='wonpoints'/></span> Points. 
+            </span>
+            <span class='total'>
+                Total:&amp;nbsp;<span class='value'><t t-esc='totalpoints' /></span>
+            </span>
+        </div>
+    </t>
+
+    <t t-extend='OrderWidget'>
+        <t t-jquery='.summary' t-operation='prepend'>
+            <div class='loyalty-points oe_hidden'>.</div>
+        </t>
+    </t>
+
+    <t t-extend='ClientLine'>
+        <t t-jquery='.client-line' t-operation='append'>
+            <td>
+                <t t-esc='widget.format_pr(partner.loyalty_points || 0, widget.pos.loyalty ? widget.pos.loyalty.rounding : 1.0)' />
+            </td>
+        </t>
+    </t>
+
+    <t t-extend='ClientDetails'>
+        <t t-jquery='.client-details-right' t-operation='prepend'>
+            <div class='client-detail'>
+                <span class='label'>Points</span>
+                <span class='detail client-points'>
+                    <t t-esc='widget.format_pr(partner.loyalty_points || 0, widget.pos.loyalty ? widget.pos.loyalty.rounding : 1.0)' />
+                </span>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend='ClientListScreenWidget'>
+        <t t-jquery='.client-list thead tr' t-operation='append'>
+            <th>Points</th>
+        </t>
+    </t>
+
+</templates>
